@@ -1,0 +1,161 @@
+---
+
+# Step-by-Step Instructions: DNS Lookup Program Practical (Based on EXPT_11.pdf)
+
+***
+
+## 1. Understanding the Experiment
+
+### Key Concepts & Objectives
+- **Objective:**  
+  - Write a program for DNS lookup: Given a domain name, return its IP address; given an IP address, return the domain name.
+- **Key Concepts:**  
+  - **DNS (Domain Name System):** Translates human-readable domain names (like www.google.com) to machine-readable IP addresses and vice versa.
+  - **DNS Resolution:** The process by which the DNS server finds the corresponding IP address or domain.
+  - **PTR Query:** Used for reverse lookups (IP→domain).
+  - **A Record:** Maps domain to IP, **PTR Record:** Maps IP to domain.
+
+### Theoretical Background
+- **DNS:**  
+  - Distributed, hierarchical database; avoids central bottleneck.
+  - Relies on recursive or iterative queries/federated authorities.
+- **Lookup Process:**  
+  - Client sends domain or IP to resolver (local DNS client).
+  - Resolver contacts DNS server, which may forward or recursively resolve if needed.
+  - Mapping is retrieved; client receives response.
+
+***
+
+## 2. Required Materials and Setup
+
+### Materials & Tools
+- Computer with any of:
+  - Java (with JDK for compiling/running DNS lookup code)
+  - Python (for socket-based DNS queries)
+  - Internet access for live DNS queries
+  - (Optional) IDE (VS Code, Eclipse, PyCharm, etc.)
+- Example domain names, e.g., “google.com”.
+- Example IP addresses, e.g., “8.8.8.8”.
+
+### Experiment Setup
+
+**Diagram (Logical Workflow):**
+```
+[User] --> [Your Program] --> [DNS Resolver] --> [DNS Server(s)] --> [Response]
+```
+- You’ll code a simple app/script that accepts either a domain or IP and prints the resolved value.
+
+***
+
+## 3. Step-by-Step Instructions
+
+### A. Implementing DNS Lookup Program (Java Example)
+*(Python alternative below)*
+
+#### Java
+
+1. **Create Java Source File:**
+   - Name: `DNSLookup.java`
+2. **Accept User Input:**
+   - Prompt user for a domain name or IP address.
+3. **Check Input Type:**
+   - If input begins with a digit, assume IP; otherwise, domain.
+4. **Use InetAddress Class:**
+   ```java
+   import java.net.*;
+   public class DNSLookup {
+       public static void main(String[] args) throws Exception {
+           String input = args[0];
+           InetAddress address = InetAddress.getByName(input);
+           System.out.println("Host Name : " + address.getHostName());
+           System.out.println("Host Address : " + address.getHostAddress());
+       }
+   }
+   ```
+5. **Compile and Run:**
+   - Compile: `javac DNSLookup.java`
+   - Run: `java DNSLookup www.google.com` or `java DNSLookup 8.8.8.8`
+
+#### Python
+
+1. **Use Built-in socket Library:**
+   ```python
+   import socket
+   input_val = input("Enter domain or IP: ")
+   try:
+       if input_val[0].isdigit():
+           print("Domain name:", socket.gethostbyaddr(input_val)[0])
+       else:
+           print("IP address:", socket.gethostbyname(input_val))
+   except Exception as e:
+       print("Error:", e)
+   ```
+
+### Safety Precautions & Tips
+- Check for typos in domain/IP input.
+- Internet connection must be active.
+- Handle exceptions for invalid or unresolvable addresses.
+
+***
+
+## 4. Data Collection and Analysis
+
+- **Collect:**
+  - Console output: domain-to-IP and IP-to-domain results for several queries.
+- **Analyze:**
+  - Confirm that common domains give expected IPs.
+  - Confirm that public IPs map back to known domains (may depend on PTR record existence).
+  - Note discrepancies or failures (e.g., local/private IPs or non-existent domains).
+
+***
+
+## 5. Conclusion and Reporting
+
+### Writing Your Report
+
+- **Introduction:**  
+  Introduce DNS and its role in Internet communication.
+- **Methods:**  
+  Show code, explain how user input is processed, and how queries are performed.
+- **Results:**  
+  Provide outputs for several sample queries.
+- **Discussion:**  
+  Discuss how distributed DNS servers quickly resolve addresses; present benefits and limitations (e.g., outdated info, missing PTR records).
+- **Conclusion:**  
+  Summarize accuracy, speed, and real-world importance; note practical outcomes.
+
+### Explaining to Examiner
+
+- Use simple terms (“like a phone book for the internet”).
+- Run code live or show sample results.
+- Explain difference between A (domain→IP) and PTR (IP→domain) records.
+
+***
+
+## 6. Downloading and Accessing Resources
+
+- **Java JDK**: [https://www.oracle.com/java/technologies/downloads/]
+- **Python Download:** [https://www.python.org/downloads/]
+- **Sample DNS lookup guides:**  
+  - Search “Java DNS Lookup Example” or “Python DNS Lookup Script”.
+- No extra libraries are required—just ensure internet connectivity.
+
+***
+
+### Reference Summary Table
+
+| Step        | Action/Commands                                        |
+|-------------|--------------------------------------------------------|
+| Setup       | Install Java/Python, prepare example domain/IP         |
+| User Input  | Print prompt, accept domain/IP as argument             |
+| Lookup      | Java: `InetAddress.getByName()`, Python: `socket`      |
+| Results     | Print host name and IP / domain as appropriate         |
+| Analysis    | Try several addresses, verify output                   |
+| Report      | Intro, code, outputs, explanation, plain-language summary |
+| Resources   | Downloads, sample code, guides                         |
+
+***
+
+Let me know if you’d like a complete runnable script or sample output for your lab manual!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/f516d0b1-7b15-4126-9f83-f15de0394307/EXPT_11.pdf)
