@@ -1,0 +1,149 @@
+---
+
+# Step-by-Step Instructions for UDP Socket Programming File Transfer Practical  
+*(Based on EXPT_6.pdf: UDP Socket Programming for Script, Text, Audio, and Video Transfer)*
+
+***
+
+## 1. Understanding the Experiment
+
+### Key Concepts & Objectives
+- **Objective:**  
+  - Learn to write a program using UDP sockets to transfer different file types (script, text, audio, video) between two machines.
+- **Key Concepts:**  
+  - **UDP (User Datagram Protocol):** A connectionless, unreliable protocol offering fast, simple delivery without guarantees.
+  - **Sockets:** Software endpoints for sending/receiving data over a network.
+  - **File Transfer:** Sending files as a series of packets from sender to receiver using network programming.
+
+### Theoretical Background
+- **UDP:**  
+  - Does not guarantee message order, delivery, or error correction.
+  - Suitable for real-time and bulk data where speed is prioritized over reliability.
+- **Berkeley Sockets API:**  
+  - A programming interface used to write network-enabled software.
+  - Headers (`sys/socket.h`, `netinet/in.h`, etc.) provide functions for socket creation and communication.
+
+***
+
+## 2. Required Materials and Setup
+
+### Materials, Tools, and Equipment
+- Two computers on the same LAN network (wired is better for stability).
+- Linux OS recommended (most examples are Linux socket code).
+- C, C++, Python, or Java installed.
+- Text editor/IDE (e.g., VS Code, Vim, Notepad++).
+- Your files: at least one text/script file, and optionally audio (.mp3/.wav) and video (.mp4/.avi) for testing transfer.
+
+### Setting Up the Experiment
+
+- Connect both machines to the same LAN and ensure they can **ping** each other.
+- Take note of both IP addresses.
+- **Diagram:**  
+  ```
+  [Sender PC] ----LAN---- [Receiver PC]
+  ```
+
+***
+
+## 3. Step-by-Step Instructions
+
+### **A. Writing UDP Server (Receiver) Program**
+
+1. Import necessary libraries (e.g., `sys/socket.h`, `netinet/in.h` for C).
+2. Create a socket specifying UDP/DGRAM:
+   - C: `int sock = socket(AF_INET, SOCK_DGRAM, 0);`
+3. Bind socket to a well-known port (e.g., 7654).
+4. Enter a loop; wait for data using `recvfrom()`, saving incoming data to a file.
+5. On file completion, close the file and socket.
+
+### **B. Writing UDP Client (Sender) Program**
+
+1. Import libraries as in server.
+2. Create a UDP socket.
+3. Identify destination IP and port (server’s).
+4. Open the file to send in read mode (binary mode for audio/video).
+5. Send data chunks using `sendto()`, looping until end of file.
+6. Optionally, send a special packet to signal end of transmission.
+7. Close file and socket.
+
+### **C. Running the Programs**
+
+1. Compile server and client code on their respective machines.
+2. Start the server program first (listening for incoming packets).
+3. Start the client program (initiates file send).
+4. Watch for transfer completion messages/output on receiver.
+
+### Safety Precautions & Tips
+- Test with small text files before attempting large or binary files.
+- For audio/video, always use binary file mode to preserve data integrity.
+- Be mindful of UDP’s unreliability—large files or busy networks may cause data loss or corruption.
+- Handle exceptions/errors in code for missing packets or incomplete transfers.
+- Never use privileged ports (<1024) without admin rights.
+
+***
+
+## 4. Data Collection and Analysis
+
+- **Collect:**
+  - Output from both programs—logs of packet sends/receives.
+  - Verify the received file against the original (size, checksum, or manual comparison for text).
+- **Analyze:**
+  - Was the file received fully and correctly?
+  - Compare transfer times for different file types.
+  - Note any errors, packet losses, or corruption (especially for larger files).
+  - For audio/video—try playing the file post-transfer.
+
+***
+
+## 5. Conclusion and Reporting
+
+### Write Your Report With:
+- **Introduction:**  
+  Brief summary of UDP, sockets, and the experiment's purpose.
+- **Methods:**  
+  Steps taken, network setup, files/programs used, and parameters (IP, port).
+- **Results:**  
+  Screenshots, logs, and evidence of file arrival and integrity.
+- **Discussion:**  
+  How UDP’s speed/reliability affected the results, issues faced, and improvements possible (like adding integrity checks).
+- **Conclusion:**  
+  What you learned about UDP programming and practical file transfer over networks.
+
+### Explaining to Examiners/External:
+- Briefly define UDP and contrast it with TCP.
+- Walk through your network diagram and code structure.
+- Demonstrate file transfer and highlight key output/verification.
+- Explain any limitations and how you could improve reliability (e.g., adding retransmissions or checksums).
+
+***
+
+## 6. Downloading and Accessing Resources
+
+- **Linux:**  
+  Usually comes with GCC/C/Make, no installation needed for sockets.
+- **Python:**  
+  Download from [https://www.python.org/downloads/], use built-in socket module.
+- **Tutorials and Sample Code:**  
+  - "UDP File Transfer Python Example" or "UDP Socket Programming in C"
+  - [GeeksforGeeks UDP Programming](https://www.geeksforgeeks.org/udp-server-in-c/)
+  - [Programiz Python UDP Socket](https://www.programiz.com/python-programming/socket-programming#udp-server-client)
+- Ensure both PCs are connected, firewall allows UDP on chosen port.
+
+***
+
+## Section Summary Table
+
+| Step                  | Task/Command/Note                                        |
+|-----------------------|----------------------------------------------------------|
+| 1. Setup              | Connect PCs, note their IPs                              |
+| 2. Server Code        | socket(), bind(), recvfrom(), save to file               |
+| 3. Client Code        | socket(), open file, sendto(), loop                      |
+| 4. Testing            | Start server, send from client, verify file              |
+| 5. Data Analysis      | Compare file, note issues                                |
+| 6. Reporting          | Document process, results, errors, explain clearly       |
+
+***
+
+Let me know if you want a **sample code in C or Python** or help with a specific file type!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/9821d592-91df-4e8b-80a7-ea6a5efc518d/EXPT_6.pdf)
