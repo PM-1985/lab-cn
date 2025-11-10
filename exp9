@@ -1,0 +1,149 @@
+---
+
+# Step-by-Step Instructions: Studying the SSL Protocol Using Wireshark
+
+***
+
+## 1. Understanding the Experiment
+
+### Key Concepts & Objectives
+- **Objective:**  
+  Study the SSL protocol by capturing packets using the Wireshark tool while visiting any SSL-secured website (e.g., banking, e-commerce).
+- **Key Concepts:**  
+  - **SSL (Secure Sockets Layer) / TLS:** Cryptography-based protocols ensuring privacy, authentication, and data integrity for Internet communications.
+  - **Wireshark:** A network protocol analyzer used to capture and inspect packets exchanged over a computer network.
+
+### Theoretical Background
+- **SSL/TLS:**  
+  - Encrypts web traffic so any intercepted data appears scrambled.
+  - Provides authentication through certificates (browser verifies server identity).
+  - Ensures integrity and confidentiality during data transfer.
+- **Packet Capture:**  
+  - Wireshark records network packets; with filters, you can isolate and inspect SSL/TLS records such as “Client Hello”, “Server Hello”, “Certificate”, and encrypted application data.
+
+***
+
+## 2. Required Materials and Setup
+
+### Materials, Tools, and Equipment
+- A computer with:
+  - **Internet access**
+  - **Wireshark** installed ([Download Link](https://www.wireshark.org/download.html))
+  - A **modern web browser** (e.g., Chrome, Firefox, Edge)
+
+### Setting Up the Experiment
+
+**Network Setup:**
+- Your computer should be directly connected to the internet (via LAN/Wi-Fi).
+
+**Diagram:**
+```
+[Your Computer] <---> [Internet] <---> [SSL-enabled Website]
+```
+***
+
+## 3. Step-by-Step Instructions
+
+### A. Preparing the Environment
+
+1. Install Wireshark from the official website.
+2. Close unnecessary apps to reduce noise in packet capture.
+
+### B. Starting the Wireshark Capture
+
+1. **Open Wireshark.**
+2. Select your network interface (usually “Ethernet” or “Wi-Fi”).
+3. Click “Start Capture” (blue shark fin icon).
+
+### C. Initiating SSL Traffic
+
+1. Open your web browser.
+2. Go to a secure website (URL starts with `https://`; e.g., https://www.bank.com, https://www.amazon.com).
+
+### D. Applying Wireshark Filters
+
+1. In Wireshark’s filter bar, type `ssl` or `tls` and click “Apply”.
+   - This isolates only SSL/TLS-related traffic for easier analysis.
+
+### E. Inspect SSL/TLS Packets
+
+1. Stop capturing after several seconds to avoid excess data (click the red stop button).
+2. In the packet list, look for:
+   - **Client Hello** (from your computer to server)
+   - **Server Hello** (from server to your computer)
+   - **Certificate** (server presents its certificate)
+   - **Application Data** (encrypted web content)
+   - **Change Cipher Spec** (beginning of encrypted phase)
+   - **Alert** (session closure, etc.)
+3. Click on a packet and expand the “Secure Sockets Layer” or “Transport Layer Security” section to view its structure.
+
+### Safety Precautions & Tips
+
+- Only capture your own traffic; avoid private/institutional networks without permission.
+- Do not enter sensitive passwords or financial info during experimental captures.
+
+***
+
+## 4. Data Collection and Analysis
+
+- **Collect:**
+  - Screenshots of Wireshark traces showing “Client Hello”, “Server Hello”, “Certificate”, and “Application Data” packets.
+  - Details such as cipher suite, version, and content type from these packets.
+
+- **Analysis:**
+  - Note the handshake process: how keys and ciphers are negotiated.
+  - See that “Application Data” is always encrypted (unreadable payload).
+  - Observe server certificate details for authentication.
+
+***
+
+## 5. Conclusion and Reporting
+
+### Writing Your Report
+
+- **Introduction:**  
+  Explain the purpose of SSL/TLS and the reason for using Wireshark.
+- **Methods:**  
+  Describe steps for setting up the capture and visiting a secure website.
+- **Results:**  
+  Present screenshots and descriptions of key packet types and fields analyzed.
+- **Discussion:**  
+  Discuss the SSL handshake, how security is ensured, and what each step does.
+- **Conclusion:**  
+  Summarize learnings regarding encrypted protocols and practical packet analysis.
+
+### Explaining to Examiners
+
+- Describe what SSL/TLS does in plain language.
+- Walk through a Wireshark capture, naming each handshake step.
+- Emphasize that encrypted web traffic keeps personal & sensitive information safe.
+
+***
+
+## 6. Downloading and Accessing Resources
+
+- **Wireshark Download:**  
+  [https://www.wireshark.org/download.html](https://www.wireshark.org/download.html)
+- **Tutorial Guides:**  
+  - Search “Wireshark SSL analysis” on YouTube for demonstrations.
+  - Wireshark official documentation: [https://www.wireshark.org/docs/](https://www.wireshark.org/docs/)
+
+***
+
+### Summary Table
+
+| Step                   | Action                                                            |
+|------------------------|-------------------------------------------------------------------|
+| Setup                  | Install Wireshark, choose test website                            |
+| Capture                | Start Wireshark, browse secure website                            |
+| Isolate SSL/TLS        | Use `ssl` or `tls` display filter                                 |
+| Inspect Packets        | View handshake, application data, certificate, alert messages     |
+| Collect/Analyze        | Take screenshots, describe results                                |
+| Report                 | Write intro, methods, screenshots, findings, plain-language summary |
+| Extra Resources        | Use official Wireshark site and YouTube for visual guides         |
+
+***
+
+Let me know if you need screenshots or frequently asked exam questions for this experiment!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/0e52a4a1-535c-48d9-8911-d394caea0d9a/EXPT_8.pdf)
