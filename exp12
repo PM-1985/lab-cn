@@ -1,0 +1,169 @@
+---
+
+# Step-by-Step Instructions: DHCP Server Installation & Remote Software Installation
+
+***
+
+## 1. Understanding the Experiment
+
+### Key Concepts & Objectives
+- **Objective:**  
+  - Install and configure a DHCP server.
+  - Write a program to install software on a remote machine.
+- **Key Concepts:**  
+  - **DHCP (Dynamic Host Configuration Protocol):** Automates the assignment of IP configurations on a network, eliminating manual IP assignment and making management easier for large networks.
+- **Theory Background:**  
+  - Every device on a network needs a unique IP address.
+  - DHCP allows automatic assignment (leasing) of IP addresses from a central server.
+  - DHCP operations: DHCP Discover, Offer, Request, ACK/NAK, Release.
+  - Benefits: Reduced manual errors, easier managing of large/roaming networks, rapid configuration changes.
+
+***
+
+## 2. Required Materials and Setup
+
+### Materials, Tools, & Equipment
+- Two networked computers (or virtual machines) with Ubuntu/Linux OS
+- Administrative privileges on both machines
+- Internet access to download software
+- Text editor (e.g., gedit, nano)
+- Terminal access (command line)
+
+### Experiment Setup Diagram
+
+```
+[PC1: DHCP Server] ---- LAN ---- [PC2: DHCP Client]
+```
+- Both machines should be on the same network.
+
+***
+
+## 3. Step-by-Step Instructions
+
+### A. Install and Configure DHCP Server on Ubuntu
+
+1. **Install DHCP Server on PC1:**
+   - Open terminal and type:
+     ```
+     sudo apt-get update
+     sudo apt-get install isc-dhcp-server
+     ```
+
+2. **Configure DHCP Server:**
+   - Edit the DHCP configuration file:
+     ```
+     sudo gedit /etc/dhcp/dhcpd.conf
+     ```
+   - Add/edit the following configuration (adjust subnet/range if needed):
+     ```
+     default-lease-time 600;
+     max-lease-time 7200;
+     option subnet-mask 255.255.255.0;
+     option broadcast-address 10.1.32.255;
+     subnet 192.168.1.0 netmask 255.255.255.0 {
+       range 10.1.32.10 10.1.32.20;
+     }
+     ```
+   - Save and close the file.
+
+3. **Restart DHCP Service:**
+   ```
+   sudo service isc-dhcp-server restart
+   sudo service isc-dhcp-server start
+   ```
+
+### B. Configure DHCP Client (PC2) to Obtain IP Automatically
+
+1. **On PC2, go to Network Settings:**
+   - Set IPv4 settings to “Automatic (DHCP)” or “Obtain an IP address automatically”.
+2. **Reconnect to the network.**
+3. **Verify:**  
+   - Run `ifconfig` or `ip addr` in terminal.
+   - Confirm the IP is within the DHCP server’s specified range (e.g., 10.1.32.10–10.1.32.20).
+
+### C. Remote Software Installation (Program/Script Example)
+
+- Use SSH from server to remotely install software:
+  - From PC1, run:
+    ```
+    ssh user@PC2_IP 'sudo apt-get install -y <software-package>'
+    ```
+- Replace `<software-package>` with the desired software (e.g., `curl`, `vim`).
+
+### Safety Precautions & Tips
+
+- Always verify network cables/connections before starting.
+- Double-check the DHCP range does not overlap existing static IPs.
+- Restart network interfaces if changes don’t take effect.
+- Use secure passwords for SSH and restrict remote access as needed.
+
+***
+
+## 4. Data Collection and Analysis
+
+- **Collect:**
+  - The assigned IP addresses on the DHCP client.
+  - Logs from DHCP server (usually in `/var/log/syslog`).
+  - Output from remote software installation (`ssh` command result).
+
+- **Analyze:**
+  - Confirm DHCP assigned an IP within the expected range.
+  - Test network connectivity (ping between PCs).
+  - Check if the requested software is installed on the client.
+
+***
+
+## 5. Conclusion and Reporting
+
+### Report Writing
+
+- **Introduction:**  
+  Describe the problems DHCP solves and experiment objectives.
+- **Methods:**  
+  Explain each step (installation, configuration, verification, remote install).
+- **Results:**  
+  Share screenshots or terminal outputs showing dynamic IP assignment and remote installation completion.
+- **Discussion:**  
+  Discuss DHCP’s advantages (automation, efficiency), issues encountered, and the use of remote software management.
+- **Conclusion:**  
+  Summarize the successful installation & configuration of DHCP, and demonstration of remote admin abilities.
+
+### Explaining to Examiners
+
+- Use clear, simple explanations (“DHCP = Automatic IP Address Assignment”).
+- Show how manual configuration is error-prone vs. DHCP’s automated approach.
+- Walk through terminal commands and their impact.
+- Discuss how remote management saves time for network admins.
+
+***
+
+## 6. Downloading and Accessing Resources
+
+- **DHCP Server:**  
+  Install with `sudo apt-get install isc-dhcp-server`
+- **Remote Tools:**  
+  SSH is usually preinstalled on Linux; else, `sudo apt-get install openssh-server`
+- **DHCP Conf Guide:**  
+  - [Ubuntu Official Docs: DHCP Server](https://help.ubuntu.com/community/ISC-DHCP-Server)
+  - [Linux man page for dhcpd.conf](https://man7.org/linux/man-pages/man5/dhcpd.conf.5.html)
+- **Practice:**  
+  - Test in a virtual machine environment like VirtualBox or VMware if hardware is limited.
+
+***
+
+## Reference Table
+
+| Step        | Command/Action                             |
+|-------------|--------------------------------------------|
+| Install SW  | `sudo apt-get install isc-dhcp-server`     |
+| Edit Config | `sudo gedit /etc/dhcp/dhcpd.conf`          |
+| Start Svc   | `sudo service isc-dhcp-server restart`     |
+| Set Client  | Set PC2 to “Obtain IP automatically”       |
+| Remote Inst | `ssh user@client 'sudo apt-get install…'`  |
+| Verify      | Use `ifconfig`, check syslog, software use |
+
+***
+
+Let me know if you want a sample configuration file or troubleshooting checklist!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/ae7a93fd-c784-4586-962f-4e7f46f47d74/EXPT_12.pdf)
