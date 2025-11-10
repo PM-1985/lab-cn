@@ -1,0 +1,176 @@
+---
+
+# Detailed Step-by-Step Instructions for TCP Socket Programming Practical  
+*(Based on EXPT_5.pdf: TCP Socket Programming for "Hello" & File Transfer)*
+
+***
+
+## 1. Understanding the Experiment
+
+### Key Concepts & Objectives
+- **Objective:**  
+  - Understand socket programming using TCP sockets.
+  - Implement client-server communication (“Hello” exchange).
+  - Transfer files over a wired network.
+- **Key Concepts:**  
+  - **Socket:** An endpoint for communication between two machines/processes.
+  - **TCP (Transmission Control Protocol):** A connection-oriented protocol ensuring reliable data transfer.
+  - **Client-Server Model:** One process acts as a *server* (waiting for connections); another acts as a *client* (initiates connection).
+
+### Theoretical Background
+- **Sockets:** Logical ports enabling processes to communicate over a network, identified by (IP address, port number).
+- **TCP Sockets:** Guarantee order and reliable delivery of messages.  
+- **Communication Steps:**
+  - The *server* creates a socket and listens on a port.
+  - The *client* creates a socket and connects to the server’s IP and port.
+  - Data is exchanged using input/output streams.
+
+***
+
+## 2. Required Materials and Setup
+
+### Materials, Tools, and Equipment
+- Two computers on the same LAN (wired recommended).
+- Operating system: Windows, Linux, or macOS.
+- Programming language (Python, Java, or C recommended; examples below in Java).
+- Text editor or IDE (e.g., VS Code, Notepad++, or Eclipse).
+- (Optional) Admin rights for network configuration.
+
+### Experiment Setup
+
+- **Logical Diagram:**  
+  ```
+  [Client PC] <---Ethernet---> [Server PC]
+  ```
+- Ensure both PCs are connected to the same wired network and know each other’s IP addresses.
+- Enable firewall exceptions for the chosen port (default: 12345 or similar).
+
+***
+
+## 3. Step-by-Step Instructions
+
+### A. Server Program
+
+1. **Create and Open Server Socket**
+   - In code, create a server socket at a chosen port (e.g., 12345).
+   ```java
+   ServerSocket server = new ServerSocket(12345);
+   ```
+2. **Listen for Incoming Connection**
+   - Wait (block) until client requests connection.
+   ```java
+   Socket client = server.accept();
+   ```
+3. **Set Up Input/Output Streams**
+   - For reading and sending data.
+   ```java
+   DataInputStream is = new DataInputStream(client.getInputStream());
+   DataOutputStream os = new DataOutputStream(client.getOutputStream());
+   ```
+4. **Exchange Data**
+   - Receive a message (“Hello”) from the client.
+   ```java
+   String received = is.readLine();
+   ```
+   - Respond (“Hello” or send a file).
+   ```java
+   os.writeBytes("Hello\n");
+   ```
+   - For file transfer: Use FileInputStream/FileOutputStream to read/write file bytes.
+5. **Close the Connection**
+   ```java
+   client.close();
+   ```
+
+### B. Client Program
+
+1. **Create a Socket & Connect to Server**
+   ```java
+   Socket client = new Socket("server_ip_address", 12345);
+   ```
+2. **Set Up Streams**
+   ```java
+   DataInputStream is = new DataInputStream(client.getInputStream());
+   DataOutputStream os = new DataOutputStream(client.getOutputStream());
+   ```
+3. **Exchange Data**
+   - Send a message to the server.
+   ```java
+   os.writeBytes("Hello\n");
+   ```
+   - Receive reply.
+   ```java
+   String serverReply = is.readLine();
+   ```
+   - For file transfer: Send/receive file bytes using file streams.
+4. **Close the Connection**
+   ```java
+   client.close();
+   ```
+
+### Safety Precautions & Tips
+- Make sure chosen port is open (not blocked by firewall).
+- Handle exceptions in code to prevent crashes.
+- Do not use reserved ports (below 1024) for custom applications.
+- Test basic connectivity (ping) before proceeding to socket code.
+- For file transfer, ensure files exist and permissions are set correctly.
+
+***
+
+## 4. Data Collection and Analysis
+
+- **Data to Collect:**
+  - Output displayed on client and server (e.g., “Hello” message, file transfer status).
+  - Server logs: When the connection is established, messages received, files sent.
+  - Client logs: Messages or file receipt information.
+
+- **Analysis Methods:**
+  - Check if both endpoints received intended messages/files.
+  - For file transfer, compare MD5 hashes or file sizes to verify successful transfer.
+  - Analyze error logs for potential connection or read/write issues.
+
+***
+
+## 5. Conclusion and Reporting
+
+### Writing the Report:
+- **Introduction:**  
+  Briefly describe TCP socket programming and client-server communication.
+- **Methods:**  
+  Outline the steps above for both client and server, with code snippets.
+- **Results:**  
+  Include displayed output and screenshots of “Hello” exchange and file transfer.
+- **Discussion:**  
+  Highlight how TCP ensures reliable communication, any issues faced, and how you resolved them.
+- **Conclusion:**  
+  Confirm that bidirectional communication and file transfer was successfully demonstrated.
+
+### Explaining to External Audience or Examiner:
+- Start with “What is socket programming?”
+- Briefly explain TCP and difference from UDP.
+- Walk through your code, or demonstrate the live output.
+- Mention challenges (e.g., network issues, firewall) and solutions.
+
+***
+
+## 6. Downloading and Accessing Resources
+
+- **Java JDK:** [https://www.oracle.com/java/technologies/downloads/]
+- **Python Download:** [https://www.python.org/downloads/]
+- **C Compiler:** Use GCC (Linux) or MinGW (Windows)
+- **Editor/IDE:** VS Code, Eclipse, Notepad++
+- (For advanced GUI testing) Download WireShark for packet analysis: [https://www.wireshark.org/]
+- Ensure both computers are on the same network/subnet.
+- Source code templates and full example code can be found at reputable coding tutorial sites (e.g., GeeksforGeeks, TutorialsPoint, StudyTonight).
+
+***
+
+**Tip:**  
+Always run the server program *before* the client so it’s ready to accept incoming connections!  
+Double-check IP addresses and ports if connection fails.
+
+***
+
+Let me know if you need complete code examples in a specific language or want a simple troubleshooting checklist for the practical!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/5be54ccb-b225-4b36-ba44-1d54ae72d3ca/EXPT_5.pdf)
