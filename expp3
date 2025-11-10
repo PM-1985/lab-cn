@@ -1,0 +1,173 @@
+## Step-by-Step Practical Guide for Experiment 3: Routing Protocol Configuration (RIP/OSPF/BGP) Using Cisco Packet Tracer
+
+***
+
+### 1. Understanding the Experiment
+
+**Key Concepts & Objectives:**
+- **Objective:** Learn how to configure a 3-router network using Routing Information Protocol (RIP) and Open Shortest Path First (OSPF) inside Cisco Packet Tracer.
+- **Key Concepts:**
+  - **Routing Protocols:** Determine how routers communicate routing information.
+  - **RIP:** Uses hop-count as metric; simple distance-vector protocol.
+  - **OSPF:** Link-state protocol; builds complete network topology map.
+
+**Theory Background:**
+- Routers need to share information to ensure data is sent via the most efficient path.
+- RIP and OSPF are two different ways routers complete this task:
+  - **RIP:** Sends complete route tables at intervals, limited to 15 hops.
+  - **OSPF:** Advertises links/interfaces, uses areas for scalability, and supports faster convergence.
+
+***
+
+### 2. Required Materials and Setup
+
+**Materials, Tools, and Equipment:**
+- Computer with **Cisco Packet Tracer** installed (see instructions below for download).
+- No physical hardware required.
+
+**Network Setup:**
+- 3 routers (named R1, R2, ISP or R3).
+- Connect routers in a triangle (each router has at least one interface to both others).
+- Each network between routers uses a unique subnet.
+
+*Example Logical Diagram:*
+```
+        +-----+           +-----+           +----+
+        | R1  |-----------| R2  |-----------| R3 |
+        +-----+           +-----+           +----+
+           |                |                 |
+    192.168.20.0    192.168.10.0      192.168.1.0
+```
+***
+
+### 3. Step-by-Step Instructions
+
+#### **A. Cisco Packet Tracer Setup**
+
+1. **Open Packet Tracer** and create a new workspace.
+2. **Drag and Drop Devices:**
+   - Place 3 routers.
+   - Add a few PCs for end-to-end tests (optional).
+3. **Connect Routers:**
+   - Use ‘Copper straight-through’ cables for router interconnections.
+   - Assign each connection to a different interface and subnet.
+
+#### **B. Assign IP Addresses**
+
+1. Click each router.
+2. Go to "Config" tab > select interface (e.g., GigabitEthernet0/0).
+3. Assign IP `'x.x.x.x'` and subnet mask `'255.255.255.0'`.
+   - Example:
+     - R1-R2: 10.10.10.0/24
+     - R2-R3: 192.168.10.0/24
+     - R3-R1: 192.168.1.0/24
+
+#### **C. Configure RIP on Each Router**
+
+1. Click **R1** > CLI tab:
+```plaintext
+enable
+configure terminal
+router rip
+version 2
+network 10.10.10.0      // Network to R2
+network 192.168.20.0    // Example: Network to R3
+```
+
+2. Repeat above steps on **R2** and **R3**, changing the `network` addresses to match their directly connected interfaces.
+
+3. Example for R2:
+```plaintext
+enable
+configure terminal
+router rip
+version 2
+network 10.10.10.0
+network 192.168.10.0
+network 192.168.1.0
+```
+
+#### **D. Configure OSPF (Alternative/Additional Step)**
+
+On R1:
+```plaintext
+enable
+configure terminal
+router ospf 1
+network 10.10.10.0 0.0.0.3 area 0
+network 192.168.20.0 0.0.0.3 area 0
+network 10.10.10.4 0.0.0.3 area 0
+```
+- Process ID can be any number (here, '1').
+- Wildcard mask determines which interfaces are advertised.
+- Repeat analogous configuration for R2 and R3, using their respective subnets.
+
+#### **E. Test Network Connectivity**
+
+1. Click any router or attached PC.
+2. Use `ping <destination IP>` to check network reachability.
+3. If ping is successful, routing is working properly.
+
+#### **F. Safety Precautions & Tips**
+
+- Double-check subnet assignments to avoid overlaps.
+- Use version 2 for RIP for classless routing support.
+- Save your configuration regularly (`write` or `copy run start` in CLI).
+
+***
+
+### 4. Data Collection and Analysis
+
+- **Data Collection:** Use `show ip route` to collect routing table information from each router.
+- **Ping Results:** Note ping success/failure for each route.
+- **Analysis:** Confirm all routers have learned correct routes to all networks via routing protocol.
+
+***
+
+### 5. Conclusion and Reporting
+
+**How to Write the Report:**
+- **Introduction:** Briefly state the experiment's aim and concepts covered.
+- **Methods:** Outline steps to configure RIP/OSPF and network design.
+- **Results:** Show screen captures or output of routing tables and ping tests.
+- **Discussion:** Discuss how each routing protocol worked, challenges faced, and how routing tables evolved.
+
+**Explaining to an Examiner:**
+- Use the diagram to show connections.
+- Briefly mention the CLI commands and what each achieves.
+- Explain the significance of successful pings between previously unreachable networks via routes.
+
+***
+
+### 6. Downloading and Accessing Resources
+
+**Cisco Packet Tracer Download:**
+- Go to: [https://www.netacad.com/resources/lab-downloads]
+- Create a free NetAcad account if asked.
+- Download the Windows/Linux/Mac version.
+- Install and open the application.
+
+**Extra Resources:**
+- For more help, see Cisco Packet Tracer tutorials on YouTube.
+- Reference: Search for “Cisco Packet Tracer Routing Tutorial” for video guides.
+
+***
+
+### **Summary Table**
+
+| Step           | Action                                    | Command/Note                 |
+|----------------|-------------------------------------------|------------------------------|
+| 1. Place routers| Packet Tracer workspace                   |                              |
+| 2. Connect routers| Use cables, assign interfaces            | Choose unique subnets        |
+| 3. Assign IPs  | Router config > Interface > IP address     | Set for each interface       |
+| 4. Configure RIP| CLI: `router rip` etc.                    | Repeat for all routers       |
+| 5. Configure OSPF| CLI: `router ospf` etc.                   | Use correct wildcard masks   |
+| 6. Test        | Ping between routers/PCs                   | `ping <ip>`                  |
+| 7. Analyze     | `show ip route` on routers                 | Check learned routes         |
+| 8. Report      | Document config, output, success           | Screenshots, explanations    |
+
+***
+
+Let me know if you need **CLI command examples for each protocol** or specific screen diagrams for your report!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/b4c884e1-64aa-4a01-99bc-ea7889ae0d9d/EXPT_3.pdf)
