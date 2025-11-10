@@ -1,0 +1,163 @@
+## Detailed Step-by-Step Instructions for Performing the Practical Exam:  
+### Experiment: **Implementation of Link State & Distance Vector Routing Protocols**
+
+***
+
+### 1. Understanding the Experiment
+
+**a. Key Concepts & Objectives:**
+- **Objective:**  
+  - To understand and implement Distance Vector (DV) and Link State (LS) routing algorithms to find the most efficient path for data transmission.
+- **Key Concepts:**  
+  - **Distance Vector Routing:** Each router periodically shares its view of the network (“distance vector”) with its immediate neighbors using the Bellman-Ford Algorithm.
+  - **Link State Routing:** Each router floods information about its directly connected neighbors to all nodes, using Dijkstra’s Algorithm to compute shortest paths.
+
+**b. Theoretical Background:**
+- **Distance Vector Algorithm (DVR):**
+  - Each router keeps a table (distance vector) with the best known distance to each destination and next hop.
+  - Uses Bellman-Ford algorithm.
+  - Problems: "Count to infinity", slow convergence, potential for routing loops.
+- **Link State Algorithm (LSR):**
+  - Each router builds a complete map of the network via flooding.
+  - Uses Dijkstra’s shortest path algorithm.
+  - Problems: Flooding traffic, potential looping without TTL.
+
+***
+
+### 2. Required Materials and Setup
+
+**Materials & Tools Needed:**
+- Computer with IDE or text editor (e.g., VS Code, PyCharm, Notepad++)
+- Programming language: Python, C, or Java
+- (Optional) For network simulation, a tool like Cisco Packet Tracer or GNS3
+
+**Experiment Setup:**
+- Choose a simple network topology—for instance, 4 routers/nodes interconnected with assigned link costs.
+- Prepare adjacency matrix or graph representation for the network.
+
+**Example Topology Diagram:**
+
+| Node | Connected Nodes | Link Cost |
+|------|----------------|-----------|
+| A    | B, C           | 1, 5      |
+| B    | A, C, D        | 1, 3, 7   |
+| C    | A, B, D        | 5, 3, 2   |
+| D    | B, C           | 7, 2      |
+
+***
+
+### 3. Step-by-Step Instructions
+
+#### **A. Distance Vector Routing (Bellman-Ford)**
+
+1. **Initialize Distance Vector Table:**
+   - Each node sets distance to self as 0 and to others as infinity.
+
+2. **Exchange Distance Vectors:**
+   - Each node sends its vector to its neighbors.
+
+3. **Update Tables:**
+   - Upon receiving a vector, each node updates its table using the formula:  
+     $$ D_x(y) = \min[ C_{x,v} + D_v(y) ] $$ for each destination y
+
+4. **Repeat:**
+   - Continue exchanging and updating until no updates occur (convergence is reached).
+
+**Tips:**
+- Use arrays/matrices for storing vectors.
+- Print tables at each iteration for clarity.
+
+#### **B. Link State Routing (Dijkstra’s Algorithm)**
+
+1. **Share Link-State Information:**
+   - Each node shares its neighbor information (link and cost) with all nodes (flooding).
+
+2. **Build Network Graph:**
+   - Each node constructs a full network graph.
+
+3. **Apply Dijkstra’s Algorithm:**
+   - Each node runs Dijkstra to compute shortest path to every other node.
+
+**Tips:**
+- Use dictionaries/lists for adjacency representation.
+- Print the shortest path tree for each node.
+
+#### **C. Code Skeleton Example (Python)**
+
+- For Distance Vector:
+  ```python
+  # Initialization
+  distance_vector = {node: {dest: inf for dest in nodes} for node in nodes}
+  # Iterative updates here...
+  ```
+
+- For Link State (Dijkstra):
+  ```python
+  import heapq
+  def dijkstra(graph, start):
+      # Shortest path algorithm here...
+  ```
+
+#### **Safety Precautions & Common Mistakes:**
+- Be careful with infinite loops in updates—ensure convergence check.
+- For Dijkstra, correctly update visited/unvisited sets.
+
+***
+
+### 4. Data Collection and Analysis
+
+**Data Collection:**
+- For each iteration, record the state of each node’s table (DV) or shortest path tree (LS).
+- Note the number of iterations for convergence.
+- For specific source-destination pairs, record computed path and total cost.
+
+**Data Analysis:**
+- Compare routes discovered by each algorithm.
+- Analyze the number of updates/floods needed until convergence.
+- Observe any loop or count to infinity behavior in DV (if it occurs).
+
+***
+
+### 5. Conclusion and Reporting
+
+**Report Structure:**
+- **Introduction:** Briefly explain algorithm principles and experiment goal.
+- **Methods:** Describe topology, how you implemented/executed each algorithm.
+- **Results:** Present tables/outputs, iteration by iteration.
+- **Discussion:**  
+   - Compare DV and LS outputs.
+   - List advantages, disadvantages, problems faced.
+   - Explain how convergence was achieved.
+- **Conclusion:** Summarize what you learned about both algorithms.
+
+**Explaining to Examiner/External:**
+- Use clear diagrams.
+- Demonstrate program outputs.
+- Highlight how each step led to the final routing table/shortest path.
+- Be ready to explain algorithm logic and key differences.
+
+***
+
+### 6. Downloading and Accessing Resources
+
+- **Coding:** Use any free IDE/online interpreter (repl.it for Python, JDoodle for C/Java, etc.)
+- **Packet Tracer/GNS3:**  
+  - Download Packet Tracer from [Cisco NetAcad](https://www.netacad.com/resources/lab-downloads) with a free account.
+  - For GNS3: Visit [https://www.gns3.com/software/download] for installation.
+- **Sample Code:** Search “Python Bellman-Ford algorithm”, “Python Dijkstra’s algorithm” for templates/tutorials.
+
+***
+
+## **Summary Table**
+| Section        | Description                                           |
+|----------------|------------------------------------------------------|
+| Concept        | DV (Bellman-Ford), LS (Dijkstra)                     |
+| Setup          | Graph topology, programming tool                      |
+| Steps          | Initialize, exchange, update (DV) / flood, compute (LS) |
+| Data           | Routing tables, convergence steps                    |
+| Report         | Intro, method, results, discussion, conclusion        |
+| Resources      | IDEs, Packet Tracer/GNS3 downloads, code samples      |
+
+Let me know if you’d like ready-made code or visual diagrams for your report or presentation!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/7042db0e-de73-4654-8616-36659d9d4881/EXPT_4.pdf)
