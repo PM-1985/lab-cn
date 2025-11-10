@@ -1,0 +1,158 @@
+---
+
+# Step-by-Step Instructions: Studying the IPsec ESP and AH Protocols Using Wireshark
+
+***
+
+## 1. Understanding the Experiment
+
+### Key Concepts & Objectives
+- **Objective:**  
+  Study the IPsec suite—specifically the ESP (Encapsulating Security Payload) and AH (Authentication Header) protocols—by capturing and analyzing packets using Wireshark.
+
+- **Key Concepts:**  
+  - **IPsec:** A set of standards/protocols used to secure IP communications by authenticating and encrypting each IP packet.
+  - **ESP:** Provides confidentiality by encrypting data, and optional authentication.
+  - **AH:** Provides data origin authentication and integrity, but not encryption.
+  - **Transport vs Tunnel Mode:** Transport secures only the payload; Tunnel secures the entire original IP packet within a new header.
+  - **Wireshark:** A network protocol analyzer for packet capture and inspection.
+
+### Theoretical Background
+- **IPsec:**  
+  - Protects data in transit across untrusted networks.
+  - Uses cryptographic keys negotiated automatically (ISAKMP).
+  - Protocols include ESP (protocol 50) and AH (protocol 51).
+- **ESP:**  
+  - Encrypts and/or authenticates IP packet contents.
+  - Used when confidentiality is required.
+- **AH:**  
+  - Authenticates IP header and data, detects modifications.
+  - No confidentiality, not compatible with NAT.
+
+***
+
+## 2. Required Materials and Setup
+
+### Materials & Tools
+- Two networked computers, routers, or virtual machines (with admin rights).
+- **Wireshark** installed on one (or both) systems: [https://www.wireshark.org/download.html]
+- A configured VPN or IPsec-capable setup between the two points.
+- Basic understanding of network interfaces and addresses.
+
+### Experiment Setup
+
+```
+[PC1 with IPsec] <---Network---> [PC2 with IPsec]
+      |                                   |
+   (Wireshark installed on at least one endpoint)
+```
+
+- **Prepare test IPsec connectivity** (site-to-site VPN, host-to-host, or a virtual IPsec setup/tool).
+
+***
+
+## 3. Step-by-Step Instructions
+
+### **A. Preparing IPsec**
+
+1. **Configure IPsec policies** on both endpoints (use built-in OS/IPsec tools or VPN appliances):
+   - Define connection endpoints, security/authentication modes (ESP/AH), and keys.
+   - Ensure the connection will run in either Transport or Tunnel mode.
+   - (See “Resources” for guides on enabling IPsec for Windows or Linux.)
+
+2. **Open Wireshark** on one endpoint.
+3. **Choose the correct network interface** (Ethernet/Wi-Fi) and start packet capture.
+
+### **B. Generating IPsec Traffic**
+
+1. Ping or transfer files between the two endpoints—the test should use IPsec.
+2. If possible, use various test packets (ICMP ping for AH, TCP or file transfers for ESP).
+
+### **C. Filtering and Inspecting in Wireshark**
+
+1. Stop capture after you generate sufficient traffic.
+2. **Filter for protocols:**
+   - For ESP: Use filter `ip.proto == 50`
+   - For AH: Use filter `ip.proto == 51`
+3. **Identify packet modes:**
+   - **Transport:** Look for ESP or AH headers inserted between the IP header and the payload.
+   - **Tunnel:** Look for a new IP header encapsulating the original packet.
+
+4. **Expand packet details** to inspect:
+   - Security Parameter Index (SPI)
+   - Sequence Number
+   - Encrypted/Authenticated data (you’ll see encrypted blocks for ESP, authenticated blocks for AH).
+
+### Safety Precautions & Tips
+
+- Only test in controlled, non-production environments.
+- Use strong keys, and avoid exposing test networks to the internet.
+- Ensure firewall allows UDP port 500 and protocols 50/51.
+
+***
+
+## 4. Data Collection and Analysis
+
+- **Collect:**
+  - Screenshots of Wireshark showing ESP and AH packets captured.
+  - Note packet structure (headers, SPI, sequence, encrypted/authenticated content).
+
+- **Analyze:**
+  - Confirm that data via ESP is encrypted (payload unreadable).
+  - Confirm that data via AH is authenticated (fields for hash/checksum).
+  - Observe Transport mode insertion (header after IP), vs Tunnel mode (new encapsulating IP header).
+
+***
+
+## 5. Conclusion and Reporting
+
+### Report Writing
+
+- **Introduction:**  
+  Explain IPsec, ESP, and AH roles in network security.
+- **Methods:**  
+  Describe configuration, test packet generation, and Wireshark analysis steps.
+- **Results:**  
+  Insert/describe screenshots, annotate ESP/AH packet fields.
+- **Discussion:**  
+  Discuss how ESP/AH provide confidentiality/integrity, difference between modes, and where you might use each protocol/mode.
+- **Conclusion:**  
+  Summarize learnings, practical challenges, and significance of observed packet data.
+
+### Explaining to Examiner
+
+- Briefly define IPsec, ESP, AH.
+- Show how you filtered for and located ESP/AH packets in Wireshark.
+- Describe the security features demonstrated by the packet details.
+
+***
+
+## 6. Downloading and Accessing Resources
+
+- **Wireshark:**  
+  Download from [https://www.wireshark.org/download.html]
+- **IPsec Configuration Guides:**  
+  - Windows: Search “Configure IPsec on Windows 10”
+  - Linux: Search “Configure strongSwan IPsec Linux”
+  - Cisco devices: See official Cisco support docs
+- **Tutorials:**  
+  Use “IPsec Wireshark Capture Tutorial” on YouTube for practical walkthroughs.
+
+***
+
+### **Quick Summary Table**
+
+| Step           | Action/Command/Note                                             |
+|----------------|---------------------------------------------------------------|
+| 1. IPsec Setup | Configure ESP/AH, set up connectivity                         |
+| 2. Traffic     | Ping/file transfer between endpoints                          |
+| 3. Capture     | Wireshark: filter `ip.proto == 50` (ESP) or `ip.proto == 51` (AH) |
+| 4. Analyze     | Examine packet structure, authentication/encryption fields    |
+| 5. Report      | Introduction, methods, results, discussion, conclusion        |
+| 6. Resources   | Wireshark download, IPsec guides, video tutorials             |
+
+***
+
+Let me know if you need example screenshots or exam questions for this lab!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/d4d0095c-aef4-4711-a1d5-3496e9c192c8/EXPT_10.pdf)
