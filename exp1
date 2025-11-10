@@ -1,0 +1,309 @@
+Experiment No. 1: Types of Topologies and Transmission Media
+🧠 1. Understanding the Experiment
+Aim
+
+To study and implement different network topologies (Bus, Star, and Mesh) and understand the types of transmission media using Cisco Packet Tracer.
+
+Objectives
+
+Understand the working of different types of topologies.
+
+Study the concept of transmission media.
+
+Learn to use the Cisco Packet Tracer tool for network simulation.
+
+Key Concepts
+Cisco Packet Tracer (CPT):
+
+Cisco Packet Tracer is a network simulation software developed by Cisco Systems that allows students and engineers to:
+
+Design, configure, and test network setups virtually.
+
+Implement topologies such as Bus, Star, and Mesh.
+
+Observe data transmission and packet flow in real-time or simulation mode.
+
+💡 Why use Packet Tracer?
+It is cost-effective, easy to use, and ideal for learning before working on real network hardware.
+
+Theoretical Background
+1. Topology
+
+A network topology defines the arrangement of network devices (nodes) and how data travels between them.
+
+Types of Topologies Implemented:
+A. Bus Topology
+
+All devices are connected to a single communication line (bus).
+
+Data travels along the bus and can be received by all nodes.
+
+Easy to implement but difficult to troubleshoot when failures occur.
+
+Advantages:
+
+Simple setup.
+
+Cost-effective (less cabling).
+
+Disadvantages:
+
+A single cable failure can bring down the entire network.
+
+Performance decreases with more devices.
+
+B. Star Topology
+
+All devices connect to a central hub or switch.
+
+The hub acts as the main controller for data transfer.
+
+Advantages:
+
+Easy to add or remove devices.
+
+Fault isolation is simple.
+
+Disadvantages:
+
+Failure of the hub/switch stops the entire network.
+
+C. Mesh Topology
+
+Every device is connected to every other device directly.
+
+Provides multiple paths for data transfer.
+
+Advantages:
+
+Highly reliable (no single point of failure).
+
+Excellent for mission-critical networks.
+
+Disadvantages:
+
+Very expensive (more cables and ports needed).
+
+Complex configuration.
+
+Transmission Media
+
+Transmission media refers to the physical pathways through which data travels in a network.
+
+Types:
+
+Guided (Wired):
+
+Twisted Pair Cable
+
+Coaxial Cable
+
+Fiber Optic Cable
+
+Unguided (Wireless):
+
+Radio waves
+
+Microwaves
+
+Infrared signals
+
+🧰 2. Required Materials and Setup
+Tools & Equipment
+Type	Details
+Software	Cisco Packet Tracer
+Devices	PCs, Switches, Routers (1841), Hubs
+Cables	Copper Straight-through, Copper Cross-over, DCE Cable
+Other	Internet connection (optional)
+Network Setup Overview
+
+Each topology will be created and tested individually using Cisco Packet Tracer.
+
+Step-by-step setup for all topologies:
+
+Open Cisco Packet Tracer.
+
+From the End Devices section, drag and drop the required number of PCs.
+
+From the Switches/Routers section, select the required devices.
+
+Use appropriate cables:
+
+Straight-through Cable: PC ↔ Switch connections.
+
+Cross-over Cable: Switch ↔ Switch or Router ↔ Router.
+
+DCE Cable: For serial connections between routers.
+
+Configure IP addresses for each PC or Router.
+
+Use Simulation Mode to observe packet transfer.
+
+⚙️ 3. Step-by-Step Instructions
+A. Bus Topology Implementation
+
+Steps:
+
+Open Cisco Packet Tracer.
+
+Place 3 PCs and 3 switches on the workspace.
+
+Connect each PC to a switch using a straight-through cable.
+
+Connect the switches in series using cross-over cables (to form the “bus” backbone).
+
+Assign IP addresses:
+
+PC	IP Address	Subnet Mask
+PC0	192.168.1.1	255.255.255.0
+PC1	192.168.1.2	255.255.255.0
+PC2	192.168.1.3	255.255.255.0
+
+Click on each PC → Desktop Tab → IP Configuration → enter IP details.
+
+Open the Command Prompt (CMD) on PC0 → type ping 192.168.1.2 and ping 192.168.1.3.
+
+Observe successful ping replies and packet flow in simulation mode.
+
+✅ Tip: Use simulation mode to visualize packet travel along the bus line.
+
+B. Star Topology Implementation
+
+Steps:
+
+Open a new workspace.
+
+Place 1 Switch (2950-24) and 5 PCs.
+
+Connect each PC to the switch using Straight-through cables.
+
+Assign IP addresses:
+
+PC	IP Address	Subnet Mask
+PC0	10.0.0.1	255.255.255.0
+PC1	10.0.0.2	255.255.255.0
+PC2	10.0.0.3	255.255.255.0
+PC3	10.0.0.4	255.255.255.0
+PC4	10.0.0.5	255.255.255.0
+
+Ping between any two PCs to confirm connectivity.
+
+Observe how data passes through the central switch in simulation mode.
+
+⚠️ Common Mistake: Forgetting to assign subnet masks or using incorrect cables (always use straight-through between PCs and switches).
+
+C. Mesh Topology Implementation
+
+Steps:
+
+Place five 1841 routers on the workspace.
+
+Turn off each router before adding serial ports:
+
+Click router → Physical tab → Power off → Drag two WIC-2T modules into empty slots.
+
+Turn router Power On.
+
+Connect each router to all other routers using DCE serial cables (for full mesh).
+
+Click each router → Config tab → Interfaces → Serial0/0/0, enter:
+
+IP Address (example: 172.16.x.x)
+
+Subnet Mask (255.255.255.0)
+
+Set Clock rate on DCE side (e.g., 64000)
+
+Turn Port Status ON
+
+After configuring all routers, run the simulation to verify connectivity.
+
+💡 Tip: For faster results, test only partial mesh (3–4 connections) before full mesh setup.
+
+Safety Precautions & Tips
+
+Double-check IP configurations before ping testing.
+
+Use “Auto Cable Select” in Packet Tracer if unsure which cable to use.
+
+Save your work frequently (File → Save As).
+
+Always switch off the router before adding/removing WIC modules.
+
+📊 4. Data Collection and Analysis
+Data Collection
+
+Record:
+
+IP configurations for all devices.
+
+Ping test results.
+
+Packet flow patterns in simulation mode.
+
+Differences in data paths across topologies.
+
+Analysis
+Topology	Cost	Fault Tolerance	Cable Required	Speed	Scalability
+Bus	Low	Poor	Less	Medium	Limited
+Star	Moderate	Medium	Moderate	High	Good
+Mesh	High	Excellent	High	High	Excellent
+
+Expected Observations:
+
+Bus topology shows a shared communication path.
+
+Star topology has a centralized structure.
+
+Mesh topology displays redundant and multiple paths.
+
+🧾 5. Conclusion and Reporting
+Conclusion
+
+Thus, we have successfully designed and simulated Bus, Star, and Mesh topologies using Cisco Packet Tracer.
+We observed the working of different transmission media and the flow of data packets in each topology.
+
+Lab Report Format
+Section	Description
+Title	Types of Topologies and Transmission Media
+Objective	To study and implement Bus, Star, and Mesh topologies
+Theory	Overview of topologies, transmission media, and tools used
+Procedure	Step-by-step configuration steps
+Observation	Screenshots of simulations and ping results
+Result/Conclusion	Network successfully simulated
+FAQs (for viva)	1. What is Cisco Packet Tracer?
+2. What are the types of topologies?
+3. How do Bus and Star topologies differ?
+4. What is Transmission Media?
+Presentation Tips
+
+Open Packet Tracer and show each topology design.
+
+Run “Simulation Mode” and demonstrate packet travel.
+
+Explain the role of switches, routers, and cables clearly.
+
+🌐 6. Downloading and Accessing Resources
+Software Download
+
+Cisco Packet Tracer:
+👉 https://www.netacad.com/courses/packet-tracer
+
+Additional Learning Resources
+
+Cisco Networking Basics
+
+GeeksforGeeks – Network Topologies
+
+Packet Tracer Tutorial – YouTube
+
+✅ Final Outcome:
+You have learned to:
+
+Identify and implement various network topologies.
+
+Use Cisco Packet Tracer for virtual simulation.
+
+Understand transmission media and data flow in computer networks.
+
+Result: Experiment successfully performed and verified.
