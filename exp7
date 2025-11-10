@@ -1,0 +1,162 @@
+---
+
+# Step-by-Step Instructions: Performance Study of HTTP, HTTPS, and FTP Using Cisco Packet Tracer
+
+***
+
+## 1. Understanding the Experiment
+
+### Key Concepts & Objectives
+- **Objective:**  
+  Study and analyze the performance of HTTP, HTTPS, and FTP protocols using Cisco Packet Tracer.
+- **Key Concepts:**
+  - **HTTP (HyperText Transfer Protocol):** Used for transmitting web pages; data is sent in plain text.
+  - **HTTPS (HTTP Secure):** HTTP over SSL/TLS, encrypting all data, providing confidentiality and integrity.
+  - **FTP (File Transfer Protocol):** Used for file transfer between computers over a network, typically authenticates users but transfers data (including passwords) in plain text unless secured (SFTP/FTPS).
+
+### Theoretical Background
+- **FTP:**
+  - Operates in client-server mode.
+  - Laptops/PCs use FTP clients to connect to FTP servers for uploading/downloading files.
+  - Data and credentials sent in clear text (unless secured).
+- **HTTP/HTTPS:**
+  - HTTP is not encrypted; HTTPS uses SSL/TLS for security.
+  - Both are used for accessing web content and exchanging data over browsers.
+
+***
+
+## 2. Required Materials and Setup
+
+### Materials, Tools, and Equipment
+- **Cisco Packet Tracer** (download from [NetAcad](https://www.netacad.com/resources/lab-downloads))
+- At least one PC/laptop and one server (from the device list in Packet Tracer)
+- Ethernet cables for network connections
+
+### Experiment Setup
+
+#### Example Network Topology Diagram
+
+```
+[ Laptop (192.168.1.1) ]
+            |
+         [ Switch ]
+            |
+   [ Server (192.168.1.2) ]
+```
+
+#### Steps to Set Up:
+1. In Cisco Packet Tracer, add:
+   - A Laptop (PC) with IP 192.168.1.1/24
+   - A Server with IP 192.168.1.2/24
+   - A Switch, and connect all devices appropriately.
+2. Assign static IP addresses as shown.
+
+***
+
+## 3. Step-by-Step Instructions
+
+### **A. Configure FTP on Server**
+1. Select the Server device.
+2. Go to Services tab → FTP.
+3. Ensure FTP service is ON.
+4. Add/manage usernames and passwords (e.g., username: `cisco`, password: `cisco`—default in Packet Tracer).
+
+### **B. Configure Laptop/PC**
+1. Set Laptop’s IP address to `192.168.1.1`, subnet mask `255.255.255.0`.
+2. Ensure it’s connected to the switch, which in turn is connected to the server.
+
+### **C. Using FTP Client**
+1. On the Laptop, open the Command Prompt.
+2. Start FTP session:  
+   `ftp 192.168.1.2`
+3. Enter credentials (`cisco/cisco`) when prompted.
+4. Test file transfer:
+   - Use `put MyFile.txt` to upload a file.
+   - Use `get MyFile.txt` to download a file.
+5. Check the status in Server → FTP directory.
+
+### **D. Using HTTP/HTTPS**
+1. On the Server, enable HTTP and HTTPS services.
+2. On the Laptop, open a web browser.
+3. Go to:
+   - `http://192.168.1.2`
+   - `https://192.168.1.2` (if HTTPS is enabled)
+4. Observe and compare browser responses for both protocols (HTTP is usually green/unlocked, HTTPS is secure/locked).
+
+### **E. Extra: Upload file for HTTP access**
+1. From the Laptop, upload an `.html` file to the HTTP server directory using FTP.
+2. On the Server, open the HTTP File Manager and verify file presence.
+3. Edit the Server’s `index.html` to include a link to your file.
+4. Access your file from the Laptop browser via `http://192.168.1.2/YourFile.html`.
+
+### Safety Precautions & Tips
+- Ensure you use correct login credentials.
+- Double-check IP addresses and cable connections.
+- Verify services (FTP/HTTP/HTTPS) are running/enabled on the server.
+- If a transfer fails, check network connectivity and service configurations.
+
+***
+
+## 4. Data Collection and Analysis
+
+- **Collect:**
+  - Logs/outputs from FTP commands (`put`, `get`, etc.).
+  - Browser responses when accessing HTTP/HTTPS.
+  - Server’s FTP and HTTP directories for file presence.
+- **Analyze:**
+  - Did upload/download succeed via FTP?
+  - Is HTTP/HTTPS web content accessible?
+  - Observe and explain difference: HTTP shows plain (unlocked), HTTPS shows secure (locked).
+  - Note if FTP data/passwords are visible in plain text.
+
+***
+
+## 5. Conclusion and Reporting
+
+### Writing Your Report:
+- **Introduction:**  
+  Briefly describe FTP, HTTP, HTTPS and their roles in networking.
+- **Methods:**  
+  Network setup in Packet Tracer, configuration steps, and testing process.
+- **Results:**  
+  Include FTP/HTTP/HTTPS outputs, file transfer logs, and screenshots.
+- **Discussion:**  
+  Discuss protocol differences:  
+    - Security (plain vs encrypted)  
+    - Usability  
+    - Typical use cases
+- **Conclusion:**  
+  Summarize key findings about protocol security and file transfer effectiveness.
+
+### Explaining to Examiner:
+- Clearly identify the practical goal (protocol comparison, file transfer).
+- Show the practical steps and explain how you tested each service.
+- Highlight the importance of using secure versions (HTTPS, SFTP) for protecting data.
+
+***
+
+## 6. Downloading and Accessing Resources
+
+- **Cisco Packet Tracer:**  
+  Download from [NetAcad](https://www.netacad.com/resources/lab-downloads) (requires free account).
+- **Supplementary Tutorials:**  
+  - Search “Packet Tracer FTP configuration tutorial” on YouTube for video guides.
+  - Built-in Packet Tracer help and user guides, accessible via Help menu.
+
+***
+
+### **Reference Summary Table**
+
+| Task                             | Action/Commands                                 |
+|-----------------------------------|------------------------------------------------|
+| Setup devices/network             | Add devices, assign IPs, connect via switch    |
+| FTP Service                      | Enable on server, use client to transfer files |
+| HTTP/HTTPS                       | Enable, test via browser with/without “https”  |
+| Verify and Analyze               | Compare outputs, discuss findings              |
+| Report & Explain                 | Use screenshots, highlight differences         |
+
+***
+
+Let me know if you want additional screenshots, code, or troubleshooting support for any step!
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/83348457/59dbc668-8f94-4141-a629-eb642a0be9e7/EXPT_7.pdf)
